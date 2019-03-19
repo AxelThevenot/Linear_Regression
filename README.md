@@ -2,6 +2,8 @@
 
 The linear regression is one the basic way to forge a rapport between variables. As its name indicates, the principle is to reduce a function to a linear form. In other words, the linear regression seeks to model associations between variables. Like other regression models, the linear regression model is used both to predict a phenomenon and to explain it.
 
+![linear regression by gradient descent](linear_regression_gradient.gif)
+
 ## Linear regression application
 
 ### Least squares method 
