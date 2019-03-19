@@ -1,35 +1,89 @@
-# Linear_Regression
-```latex
-\text{for } f \text{ the function that we are trying to approximate and } (x_i)_{i=0,\dots,n} \text{ for all its points. We are looking for a polynomial }\\ P_m(x) = a_0 + a_1x + \dots + a_mx \text{, which best approaches the function } f \text{. In other words we are looking for : } \\\\
+## Linear regression principle
 
-\min_{a_0 \dots a_m}\left (\sum_{i=0}^{n} f(x_i) - P_m(x_i)\right) \\\\\\
+The linear regression is one the basic way to forge a rapport between variables. As its name indicates, the principle is to reduce a function to a linear form. In other words, the linear regression seeks to model associations between variables. Like other regression models, the linear regression model is used both to predict a phenomenon and to explain it.
 
-\text{As in our case we are in a linear case we have : }\\\\
+## Linear regression application
 
-\min_{a, b \in\mathbb{R}}\left (\sum_{i=0}^{n} f(x_i) - (a(x_i) + b)\right) \\\\\\
+### Least squares method 
+
+The common method of linear regression is the least squares method. It aims to find a polynomial, which best represents the function to interpret. So it tries to find the polynomial, which has the minimum difference with the function.
 
 
-\text{In practice, all we have to do is calculate the values as : 
-
-a = {{cov(x_i,f(x_i))}\over{var(x_i)}} \quad \text{and} \quad b = \overline{f(x_i)} - m\overline{x_i}
-```
 ![maths](least_squares.gif)
-```
- \\\text{For }J \text{ the cost of the function  we have : } \\\\
-J(a_0,\dots,a_m)=\frac{1}{n}\sum_{i=1}^{n} \left(f(x_i)-P_m(x_i)\right)^2\\\\
 
-\text{In the linear case we have : }\\\\
-P_2(x_i) = a(x_i) + b\\\\
+### Gradient descent method : Introduction to Machine Learning
 
 
-\text{So the gradients are : }\\\\
-\displaystyle \frac{\partial}{\partial a}J(a, b) = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)- (ax_i + b)\right).x_i = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)-P_2(x_i)\right).x_i\quad\text{and}\\\\
-\displaystyle \frac{\partial}{\partial b}J(a, b) = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)- (ax_i + b)\right) = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)-P_2(x_i)\right)\\
+The gradient descent method for linear regression is not useful. Yet it is the best example to introduce the gradient descent application in machine learning algorithms. In those algorithms, the variables are dynamically changing according to the error they induce. For a better understanding I invite you to alternate between the theory and the practice case as the theory may be a little uncomfortable. 
 
-\\
+In the linear regression case we have two dynamic variables : `a` and `b`, which compose the polynomial `P = a * x + b` approaching the function to approximate.
 
-\text{The gradient descent algorithme need a learning rate } L \text{ and repeat the folowing operations until convergence : }\\\\
+Firstly `a` and `b` have a starting value, random or choosen. According to the error function (which can be the euclidean function), the gradient for each variables are calculate.
+Then the algorihtm changes step by step the variable's values according to minimize the error function. So each variables is changing according to its gradient. The changes are made until convergence. Here a mathematical explanation easier to understand :
 
-\left\{a:=a- L\frac{\partial}{\partial a}J(a, b)\right\} \quad and \quad \left\{b:=b - L\frac{\partial}{\partial b}J(a, b)\right\}
-```
+
+
+It is important not to choose a learning rate to high or to low. 
+
+
 ![maths](gradient_descent.gif)
+
+## Thales stock prices case
+
+The linear regression case here will be made through the Thales stock prices case. In this application we can use the linear regression to predict and explain the stock prices evolution. Explain means report the stock prices a posteriori.
+You can find the data I use for the case in [this website](https://www.abcbourse.com/download/download.aspx?s=HOp).
+
+## Pseudo Code
+
+### Least squares method
+
+```
+```
+
+### Gradient descent method
+
+```
+```
+
+## Let's start with python
+
+### Variables 
+
+```python
+```
+
+### Load dataset
+
+
+```python
+```
+
+### Least squares method
+
+```python
+```
+
+
+### Gradient descent method
+
+```python
+```
+
+```python
+```
+
+
+
+### Display
+
+
+```python
+```
+
+```python
+```
+### Run it ! 
+
+
+```python
+```
