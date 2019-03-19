@@ -30,6 +30,8 @@ It is important not to choose a learning rate to high or to low.
 
 ![maths](gradient_descent.gif)
 
+![learning rate](learning_rate.png)
+
 ## Thales stock prices case
 
 The linear regression case here will be made through the Thales stock prices case. In this application we can use the linear regression to predict and explain the stock prices evolution. Explain means report the stock prices a posteriori.
