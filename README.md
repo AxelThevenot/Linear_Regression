@@ -9,8 +9,27 @@
 \min_{a, b \in\mathbb{R}}\left (\sum_{i=0}^{n} f(x_i) - (a(x_i) + b)\right) \\\\\\
 
 
-\text{In practice, all we have to do is calculate the values as : } \\\\
+\text{In practice, all we have to do is calculate the values as : 
 
-a = {{cov(x_i,f(x_i))}\over{var(x_i)}} \text{     and    } b = \overline{f(x_i)} - m\overline{x_i}
+a = {{cov(x_i,f(x_i))}\over{var(x_i)}} \quad \text{and} \quad b = \overline{f(x_i)} - m\overline{x_i}
 ```
-![maths](https://latex.codecogs.com/gif.latex?\text{for&space;}&space;f&space;\text{&space;the&space;function&space;that&space;we&space;are&space;trying&space;to&space;approximate&space;and&space;}&space;(x_i)_{i=0,\dots,n}&space;\text{&space;for&space;all&space;its&space;points.&space;We&space;are&space;looking&space;for&space;a&space;polynomial&space;}\\&space;P_m(x)&space;=&space;a_0&space;&plus;&space;a_1x&space;&plus;&space;\dots&space;&plus;&space;a_mx&space;\text{,&space;which&space;best&space;approaches&space;the&space;function&space;}&space;f&space;\text{.&space;In&space;other&space;words&space;we&space;are&space;looking&space;for&space;:&space;}&space;\\\\&space;\min_{a_0&space;\dots&space;a_m}\left&space;(\sum_{i=0}^{n}&space;f(x_i)&space;-&space;P_m(x_i)\right)&space;\\\\\\&space;\text{As&space;in&space;our&space;case&space;we&space;are&space;in&space;a&space;linear&space;case&space;we&space;have&space;:&space;}\\\\&space;\min_{a,&space;b&space;\in\mathbb{R}}\left&space;(\sum_{i=0}^{n}&space;f(x_i)&space;-&space;(a(x_i)&space;&plus;&space;b)\right)&space;\\\\\\&space;\text{In&space;practice,&space;all&space;we&space;have&space;to&space;do&space;is&space;calculate&space;the&space;values&space;as&space;:&space;}&space;\\\\&space;a&space;=&space;{{cov(x_i,f(x_i))}\over{var(x_i)}}&space;\text{&space;and&space;}&space;b&space;=&space;\overline{f(x_i)}&space;-&space;m\overline{x_i})
+![maths](least_squares.gif)
+```
+ \\\text{For }J \text{ the cost of the function  we have : } \\\\
+J(a_0,\dots,a_m)=\frac{1}{n}\sum_{i=1}^{n} \left(f(x_i)-P_m(x_i)\right)^2\\\\
+
+\text{In the linear case we have : }\\\\
+P_2(x_i) = a(x_i) + b\\\\
+
+
+\text{So the gradients are : }\\\\
+\displaystyle \frac{\partial}{\partial a}J(a, b) = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)- (ax_i + b)\right).x_i = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)-P_2(x_i)\right).x_i\quad\text{and}\\\\
+\displaystyle \frac{\partial}{\partial b}J(a, b) = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)- (ax_i + b)\right) = \frac{-2}{n}\sum_{i=1}^{n} \left(f(x_i)-P_2(x_i)\right)\\
+
+\\
+
+\text{The gradient descent algorithme need a learning rate } L \text{ and repeat the folowing operations until convergence : }\\\\
+
+\left\{a:=a- L\frac{\partial}{\partial a}J(a, b)\right\} \quad and \quad \left\{b:=b - L\frac{\partial}{\partial b}J(a, b)\right\}
+```
+![maths](gradient_descent.gif)
