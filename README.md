@@ -4,7 +4,7 @@ The linear regression is one the basic way to forge a rapport between variables.
 
 The linear regression can also be use for classification cases. It works with the same method but the cost function will be calculate with a different manner. 
 
-![linear regression by gradient descent](linear_regression_gradient.gif)
+![linear regression by gradient descent](/src/linear_regression_gradient.gif)
 
 
 ## Linear regression application
@@ -14,7 +14,7 @@ The linear regression can also be use for classification cases. It works with th
 The common method of linear regression is the least squares method. It aims to find a polynomial, which best represents the function to interpret. So it tries to find the polynomial, which has the minimum difference with the function.
 
 
-![maths](least_squares.png)
+![maths](/src/least_squares.png)
 
 
 ### Gradient descent method : Introduction to Machine Learning
@@ -32,7 +32,7 @@ Then the algorihtm changes step by step the variable's values to minimize the co
 It is important not to choose a learning rate to high or to low. 
 
 
-![maths](gradient_descent.png)
+![maths](/src/gradient_descent.png)
 
 On one hand, if you set a learning rate too low, learning will take too long.
 
@@ -40,7 +40,7 @@ On the other hand, if you set a learning rate too high, the variable's value jum
 
 The aim is therefore to choose (experimentally most of the time) a learning rate that is neither too high nor too low
 
-![learning rate](learning_rate.png)
+![learning rate](/src/learning_rate.png)
 
 ## Thales stock prices case
 
@@ -51,7 +51,7 @@ The objective is to show by a linear regression the month-by-month global evolut
 
 To be precise, it is not the stock prices at each 1st of the month but it is the prices each 40-45 days. It is not accurate to tell we will work with prices at each 1st of the month but we will consider it. It will not the the algorithms principles. Here a render of the .csv file we have : 
 
-![render of the csv file](csv_render.png)
+![render of the csv file](/src/csv_render.png)
 
 ## Pseudo Code
 
