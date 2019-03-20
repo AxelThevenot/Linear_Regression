@@ -2,6 +2,8 @@
 
 The linear regression is one the basic way to forge a rapport between variables. As its name indicates, the principle is to reduce a function to a linear form. In other words, the linear regression seeks to model associations between variables. Like other regression models, the linear regression model is used both to predict a phenomenon and to explain it.
 
+The linear regression can also be use for classification cases. It works with the same method but the cost function will be calculate with a different manner. 
+
 ![linear regression by gradient descent](linear_regression_gradient.gif)
 
 ## Linear regression application
@@ -20,8 +22,8 @@ The gradient descent method for linear regression is not useful. Yet it is the b
 
 In the linear regression case we have two dynamic variables : `a` and `b`, which compose the polynomial `P = a * x + b` approaching the function to approximate.
 
-Firstly `a` and `b` have a starting value, random or choosen. According to the error function (which can be the euclidean function), the gradient for each variables are calculate.
-Then the algorihtm changes step by step the variable's values according to minimize the error function. So each variables is changing according to its gradient. The changes are made until convergence. Here a mathematical explanation easier to understand :
+Firstly `a` and `b` have a starting value, random or choosen. According to the cost function (which can be the euclidean function), the gradient for each variables are calculate.
+Then the algorihtm changes step by step the variable's values to minimize the cost function. So each variables is changing according to its gradient. The changes are made until convergence. Here a mathematical explanation easier to understand :
 
 
 
@@ -29,29 +31,69 @@ It is important not to choose a learning rate to high or to low.
 
 
 ![maths](gradient_descent.gif)
+On one hand, if you set a learning rate too low, learning will take too long.
 
+On the other hand, if you set a learning rate too high, the variable's value jumps randomly whitout reaching the bottom of the cost function.
+
+The aim is therefore to choose (experimentally most of the time) a learning rate that is neither too high nor too low
 ![learning rate](learning_rate.png)
 
 ## Thales stock prices case
 
-The linear regression case here will be made through the Thales stock prices case. In this application we can use the linear regression to predict and explain the stock prices evolution. Explain means report the stock prices a posteriori.
+The linear regression case here will be made through the Thales stock prices case since march of 2013. In this application we can use the linear regression to predict and explain the stock prices evolution. Explain means report the stock prices a posteriori.
 You can find the data I use for the case in [this website](https://www.abcbourse.com/download/download.aspx?s=HOp).
+ 
+The objective is to show by a linear regression the month-by-month global evolution of the Thales stock prices without noises. In this way we can also predict how the value will evolve. We will not make any prediction in this example, although we only need to "extend" the regression line.  
+
+To be precise, it is not the stock prices at each 1st of the month but it is the prices each 40-45 days. It is not accurate to tell we will work with prices at each 1st of the month but we will consider it. It will not the the algorithms principles. Here a render of the .csv file we have : 
+
+![render of the csv file](csv_render.png)
 
 ## Pseudo Code
 
 ### Least squares method
 
+Least squares method for a 2D problem :
+
 ```
+Calculate mean(X) and mean(Y) (X and Y are respectively months and stock prices in our exemaple)
+
+Calculate COV(X, Y)
+
+Calculate VAR(X)
+
+Calculate a as a = COV(X, Y) / VAR(X)
+
+Calculate b as b = mean(Y) - a * mean(X)
+
+Return the polynomial a*x + b, which is the linear regerssion of the function f(X) = Y
 ```
 
 ### Gradient descent method
 
+Gradient descent method for linear regression: (Be aware that cost = error²)
+
 ```
+Give to a and b a starting value
+
+Choose the learning rate L
+
+While the minimum chosen cost or the number of maximum epoch chosen are not reaching
+    
+    Calculate the error (sum of each point's error)
+    
+    Calculate grad(a) and grad(b)
+    
+    Update a as a = a - grad(a) * L
+    
+    Update b as b = b - grad(b) * L
 ```
 
 ## Let's start with python
 
 ### Import
+
+Firstly we need to import csv to extract the data from a .csv file. And we need to import matplotib for the render and its animation. 
 
 ```python
 import csv
@@ -60,6 +102,12 @@ import matplotlib.animation as animation
 ```
 
 ### Variables
+
+As usual I made a region to change the variables to an easier understanding. Variables that can be manually changed are those, which are in uppercases. They are classed as variables for : 
+* Choosing the linear regression method (binary choice)
+* Stocking the a and b value of our linear polynominal a * x + b
+* Choosing the vairables if gradient descent method is chosen. (`METHOD = 1`)
+* Rendering the algorithm output
 
 ```python
 dataset = {}
@@ -90,7 +138,7 @@ started = False  # turn to True when Enter key is pressed
 
 ### Load dataset
 
-
+Before to start our algorithms, we have to load a dataset. As I said before, the dataset here is the stock prices of Thales. 
 ```python
 def loadDataset(filename):
     """
