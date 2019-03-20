@@ -6,6 +6,7 @@ The linear regression can also be use for classification cases. It works with th
 
 ![linear regression by gradient descent](linear_regression_gradient.gif)
 
+
 ## Linear regression application
 
 ### Least squares method 
@@ -13,7 +14,8 @@ The linear regression can also be use for classification cases. It works with th
 The common method of linear regression is the least squares method. It aims to find a polynomial, which best represents the function to interpret. So it tries to find the polynomial, which has the minimum difference with the function.
 
 
-![maths](least_squares.gif)
+![maths](least_squares.png)
+
 
 ### Gradient descent method : Introduction to Machine Learning
 
@@ -30,12 +32,14 @@ Then the algorihtm changes step by step the variable's values to minimize the co
 It is important not to choose a learning rate to high or to low. 
 
 
-![maths](gradient_descent.gif)
+![maths](gradient_descent.png)
+
 On one hand, if you set a learning rate too low, learning will take too long.
 
 On the other hand, if you set a learning rate too high, the variable's value jumps randomly whitout reaching the bottom of the cost function.
 
 The aim is therefore to choose (experimentally most of the time) a learning rate that is neither too high nor too low
+
 ![learning rate](learning_rate.png)
 
 ## Thales stock prices case
@@ -138,7 +142,8 @@ started = False  # turn to True when Enter key is pressed
 
 ### Load dataset
 
-Before to start our algorithms, we have to load a dataset. As I said before, the dataset here is the stock prices of Thales. 
+Before to start our algorithms, we have to load a dataset. As I said before, the dataset here is the stock prices of Thales and the column we are interested in is the opening prices.
+
 ```python
 def loadDataset(filename):
     """
@@ -161,6 +166,8 @@ def loadDataset(filename):
 ```
 
 ### Least squares method
+
+The least squares method is easy to implement and is really near to the pseudo code written above. The function `least_squares()` calculate the `a` and `b` value of the polynomial `P(x) = a * x + b`, which approaches the best the stock prices. Then it returns the two values.
 
 ```python
 def least_squares():
@@ -200,36 +207,42 @@ def least_squares():
 
 ### Gradient descent method
 
+The `step_gradient_descent()` function returns the `a` and `b` coeffiecient updated one time. It will be the function to repeat to make the gradient descent working. The function takes four arguments : `X` and `Y` arrays, which respectively are in our cases the months array and the opening stock price of Thales associated to this date. It also take the `a` and `b` to update and to return. 
+
 ```python
-def step_gradient_descent(x, y, a, b):
+def step_gradient_descent(X, Y, a, b):
     """
     Return the coefficient of the linear regression using the gradient descent method
     :return: a, b (coefficients as f(x) = a*x + b)
-    :param x: x array
-    :param y: y array
+    :param X: X array
+    :param Y: Y array
     :param a: coefficient a
     :param b: coefficient b
     :return: a, b, squared_error (coefficients as f(x) = a*x + b)
     """
 
-    N = len(x)
+    N = len(X)
     # calculate our current predictions
-    predictions = [(a * x[i]) + b for i in range(N)]
+    predictions = [(a * X[i]) + b for i in range(N)]
 
     # calculate the errors
-    error = [(y[i] - predictions[i]) / N for i in range(N)]
+    error = [(Y[i] - predictions[i]) / N for i in range(N)]
 
     # calculate the gradients
-    a_gradient = -(2 / N) * sum([x[i] * error[i] for i in range(N)])
+    a_gradient = -(2 / N) * sum([X[i] * error[i] for i in range(N)])
     b_gradient = -(2 / N) * sum([error[i] for i in range(N)])
 
     # update the coefficients
     a -= LEARNING_RATE * a_gradient
     b -= LEARNING_RATE * b_gradient
 
-    squared_error = sum([e**2 for e in error]) # if needed
-    return a, b, squared_error
+    cost = sum([e**2 for e in error]) # if needed
+    return a, b, cost
 ```
+
+The `linear_regression_activate()` is launching the method chosen by the binary value `METHOD`. This function is a little special as it is called by the `matplotlib.animation` object. That's why there is the variable `frame_number` that I will not explain in this page. In my program, we will activate the linear regression method by pressing the Enter key. When the key is pressed, the `linear_regression_activate()` will run the chosen method of linear regression. 
+
+As you may have seen, the `display()` is not written yet. I addition to that, the function, which links the Enter key to the start is also not written. I will be next. 
 
 ```python
 def linear_regression_activate(frame_number):
@@ -262,6 +275,7 @@ def linear_regression_activate(frame_number):
 
 ### Display
 
+That is the time to add the `display()` function to render the algorithm. It only shows the stock prices and waits for the Enter key too to display the linear regression.
 
 ```python
 def display():
@@ -312,6 +326,8 @@ def display():
 
 ```
 
+Finally, implement the `key_pressed()` function to activate the algorithm when Enter key is pressed.
+
 ```python
 def key_pressed(event):
     """
@@ -324,7 +340,6 @@ def key_pressed(event):
 
 ```
 ### Run it ! 
-
 
 ```python
 if __name__ == '__main__':
